@@ -343,5 +343,9 @@
   "DEVELOPER" : "Developer",
   "VALUE_AT_TX_TIME" : "Value at time of send",
   "YUBIKEY_INPUT_EXPLAIN" : "To pair your key with your account select the text box below and press the green LED button on your yubikey device.",
-  "" : ""
+  "SIGN_MESSAGE"  : "Sign a message",
+  "SIGN_MESSAGE_EXPLAIN_LINK"  : "to prove you own an address",
+  "SIGN_MESSAGE_EXPLAIN"  : "By signing a message, you can prove that you own this address.",
+  "MESSAGE" : "Message",
+  "SIGNED_MESSAGE" : "Signed message"
 }

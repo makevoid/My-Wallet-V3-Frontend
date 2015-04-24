@@ -56,6 +56,14 @@
           address
     )
 
+  $scope.signMessage = () ->
+    Wallet.clearAlerts()
+    modalInstance = $modal.open(
+      templateUrl: "partials/sign-message.jade"
+      controller: SignMessageCtrl
+      windowClass: "blockchain-modal"
+    )
+
   #################################
   #           Private             #
   #################################

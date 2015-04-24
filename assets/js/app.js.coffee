@@ -51,6 +51,7 @@ modules = [
   "partials/transactions.jade"
   "partials/upgrade.jade"
   "partials/common.jade"
+  "partials/sign-message.jade"
   "partials/settings/accounts.jade"
   "partials/settings/addresses.jade"
   "partials/settings/address.jade"

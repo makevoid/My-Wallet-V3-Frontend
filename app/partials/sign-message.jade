@@ -1,0 +1,30 @@
+.modal-header
+  h3(translate="SIGN_MESSAGE")
+.modal-body
+  p(translate="SIGN_MESSAGE_EXPLAIN")
+    
+  form.form-horizontal(role="form",name="form",novalidate)
+    .form-group
+      label.col-sm-3.control-label
+        span(translate="ADDRESS")
+        |:  
+      .col-sm-7
+        ui-select(ng-model="fields.address")
+          ui-select-match {{ $select.selected.address }}
+          ui-select-choices(repeat="address in legacyAddresses | filter: $select.search") 
+            span(ng-bind-html="address.address | highlight: $select.search")
+    .form-group
+      label.col-sm-3.control-label
+        span(translate="MESSAGE")
+        |: 
+      .col-sm-7
+        textarea.form-control(rows="3", ng-model="fields.message")
+    .form-group(ng-show="signedMessage")
+      label.col-sm-3.control-label
+        span(translate="SIGNED_MESSAGE")
+        |: 
+      .col-sm-7
+        pre {{ signedMessage }}
+              
+.modal-footer
+  button.btn.btn-primary(ng-click="sign()" translate="SIGN", ng-disabled="fields.message == '' || !fields.address")

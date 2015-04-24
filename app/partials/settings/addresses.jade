@@ -3,6 +3,12 @@ p.headliner.hidden-xs(translate="MY_ADDRESSES_EXPLAIN_TEMP")
 div(ng-show="hdAddresses.length == 0")
   img(src="img/spinner.gif")
 div(ng-show="hdAddresses.length > 0")
+  .row
+     .col-xs-12
+       p
+         a(TRANSLATE="SIGN_MESSAGE", ng-click="signMessage()")
+         span  
+         span(TRANSLATE="SIGN_MESSAGE_EXPLAIN_LINK")
   .row.form-ctrl
     .col-xs-12.col-lg-6
       input.filter(type="text", ng-model="searchText").form-control

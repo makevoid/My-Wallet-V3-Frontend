@@ -63,3 +63,10 @@ describe "SettingsAddressesCtrl", ->
       scope.importAddress()
       expect(modal.open).toHaveBeenCalled()
     )
+    
+  describe "signMessage()", ->
+    it "should open a modal",  inject(($modal) ->
+      spyOn(modal, "open")
+      scope.signMessage()
+      expect(modal.open).toHaveBeenCalled()
+    )

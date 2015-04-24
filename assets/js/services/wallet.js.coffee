@@ -303,6 +303,9 @@ walletServices.factory "Wallet", ($log, $window, $timeout, MyWallet, MyBlockchai
         successCallback()
         
       wallet.store.setLegacyAddressLabel(address.address, label, success, errorCallback)
+  
+  wallet.signMessage = (address, message, successCallback) ->
+    successCallback(wallet.my.signMessage(address.address, message))
     
   wallet.logout = () ->
     wallet.didLogoutByChoice = true
