@@ -2,7 +2,7 @@ angular
   .module('walletApp')
   .controller("AddressImportCtrl", AddressImportCtrl);
 
-function AddressImportCtrl($scope, $log, Wallet, $modalInstance, $translate, $state, $timeout) {
+function AddressImportCtrl($scope, $log, $q, Wallet, $modalInstance, $translate, $state, $timeout) {
   $scope.settings = Wallet.settings;
   $scope.accounts = Wallet.accounts;
   $scope.alerts = Wallet.alerts;
@@ -33,6 +33,10 @@ function AddressImportCtrl($scope, $log, Wallet, $modalInstance, $translate, $st
     let addressOrPrivateKey = $scope.fields.addressOrPrivateKey.trim();
     let bip38passphrase = $scope.fields.bip38passphrase.trim();
 
+    if ($scope.BIP38) {
+      return $scope.proceedWithBip38(bip38passphrase);
+    }
+
     const success = (address) => {
       $scope.status.busy = false;
       $scope.address = address;
@@ -53,23 +57,18 @@ function AddressImportCtrl($scope, $log, Wallet, $modalInstance, $translate, $st
       }
     };
 
-    const needsBipPassphrase = (proceed) => {
-      $scope.BIP38 = true;
-      $scope.proceedWithBip38 = proceed;
-    };
-
-    const cancel = () => {
+    const needsBipPassphrase = () => {
       $scope.status.busy = false;
+      let defer = $q.defer();
+      $scope.BIP38 = true;
+      $scope.proceedWithBip38 = defer.resolve;
+      $scope.$root.$safeApply($scope);
+      return defer.promise;
     };
 
     $timeout(() => {
-      if(!$scope.BIP38) {
-        Wallet.addAddressOrPrivateKey(
-          addressOrPrivateKey, needsBipPassphrase, success, error, cancel
-        );
-      } else {
-        $scope.proceedWithBip38(bip38passphrase);
-      }
+      Wallet.importAddress(addressOrPrivateKey, needsBipPassphrase)
+        .then(success).catch(error);
     }, 250);
   };
 
